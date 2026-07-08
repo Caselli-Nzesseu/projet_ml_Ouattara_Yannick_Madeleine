@@ -1,0 +1,31 @@
+# Environnements virtuels Python
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+
+# Dataset Kaggle 
+dataset/
+data/
+garbage-classification/
+*.zip
+
+# Modèle entrainé
+*.h5
+*.keras
+
+# Variables d'environnement / secrets
+.env
+
+# Fichiers systeme
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
