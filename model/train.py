@@ -17,9 +17,8 @@ import json
 import os
 
 import tensorflow as tf
-from tensorflow.keras import layers, models
+from tensorflow.keras import layers
 from tensorflow.keras.applications import MobileNetV2
-from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 
 IMG_SIZE = (224, 224)
 
@@ -73,11 +72,13 @@ def build_model(num_classes):
 
     inputs = tf.keras.Input(shape=IMG_SIZE + (3,))
     x = data_augmentation(inputs)
-    x = preprocess_input(x)  # normalisation attendue par MobileNetV2
+    # Normalisation MobileNetV2 (x/127.5 - 1) en couche standard sérialisable
+    # (surtout PAS preprocess_input en op brute : le .h5 ne se recharge pas)
+    x = layers.Rescaling(1.0 / 127.5, offset=-1.0, name="preprocessing")(x)
     x = base_model(x, training=False)
     x = layers.GlobalAveragePooling2D()(x)
     x = layers.Dropout(0.3)(x)
-    outputs = layers.Dense(num_classes, activation="softmax")(x)
+    outputs = layers.Dense(num_classes, activation="softmax", name="dense")(x)
 
     model = tf.keras.Model(inputs, outputs)
     model.compile(

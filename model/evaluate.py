@@ -9,7 +9,6 @@ import argparse
 
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 from sklearn.metrics import classification_report, confusion_matrix
 import matplotlib
 
@@ -20,7 +19,7 @@ IMG_SIZE = (224, 224)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--data_dir", required=True)
-parser.add_argument("--model", default="modele_eco_sort.h5")
+parser.add_argument("--model", default="modele_eco_sort_v2.h5")
 args = parser.parse_args()
 
 # Même split et même seed que train.py -> même jeu de validation
@@ -32,7 +31,7 @@ val_ds = tf.keras.utils.image_dataset_from_directory(
     image_size=IMG_SIZE,
     batch_size=32,
     label_mode="categorical",
-    shuffle=False,
+    shuffle=True,
 )
 class_names = val_ds.class_names
 
@@ -40,7 +39,8 @@ model = tf.keras.models.load_model(args.model)
 
 y_true, y_pred = [], []
 for images, labels in val_ds:
-    probas = model.predict(preprocess_input(images), verbose=0)
+    # pixels bruts : la normalisation est intégrée dans le modèle (Rescaling)
+    probas = model.predict(images, verbose=0)
     y_true.extend(np.argmax(labels.numpy(), axis=1))
     y_pred.extend(np.argmax(probas, axis=1))
 

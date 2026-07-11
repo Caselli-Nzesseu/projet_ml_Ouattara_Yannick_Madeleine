@@ -13,9 +13,11 @@ import sys
 
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 
 IMG_SIZE = (224, 224)
+# NB : la normalisation (x/127.5 - 1) est intégrée DANS le modèle (couche
+# Rescaling). On donne donc au modèle des pixels bruts 0-255, jamais
+# d'image déjà normalisée — sinon double normalisation et prédictions fausses.
 
 # Mapping officiel du sujet : classe du dataset -> (poubelle, couleur UI, hexa)
 MAPPING_TRI = {
@@ -82,8 +84,7 @@ def predire_consigne_tri(image_path: str, nom_produit: str = "",
     model, labels = charger_modele(model_path, labels_path)
 
     img = tf.keras.utils.load_img(image_path, target_size=IMG_SIZE)
-    arr = tf.keras.utils.img_to_array(img)
-    arr = preprocess_input(arr)
+    arr = tf.keras.utils.img_to_array(img)  # pixels bruts 0-255
     arr = np.expand_dims(arr, axis=0)
 
     probas = model.predict(arr, verbose=0)[0]
