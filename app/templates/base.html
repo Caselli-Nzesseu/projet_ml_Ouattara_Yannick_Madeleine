@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}EcoSort-Search{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <a href="{{ url_for('index') }}" class="logo">EcoSort<span>Search</span></a>
+    <p class="tagline">Trouvez la bonne poubelle pour votre produit</p>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="legend" aria-label="Légende des poubelles">
+      <span class="legend-item bin-jaune">Jaune</span>
+      <span class="legend-item bin-vert">Vert</span>
+      <span class="legend-item bin-bleu">Bleu</span>
+      <span class="legend-item bin-gris">D3E</span>
+      <span class="legend-item bin-marron">Marron</span>
+    </div>
+  </footer>
+</body>
+</html>

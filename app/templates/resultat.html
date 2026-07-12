@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Résultat — EcoSort-Search{% endblock %}
+{% block content %}
+<section class="resultat">
+  <a href="{{ url_for('index') }}" class="back-link">← Nouvelle recherche</a>
+
+  <div class="resultat-card bin-{{ couleur_classe }}">
+    <p class="resultat-eyebrow">{{ nom_produit }}</p>
+    <h1 class="resultat-poubelle">{{ poubelle }}</h1>
+    <p class="resultat-detail">Confiance du modèle : {{ confiance }}%</p>
+  </div>
+</section>
+{% endblock %}
