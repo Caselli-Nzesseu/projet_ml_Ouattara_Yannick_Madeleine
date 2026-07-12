@@ -181,3 +181,75 @@ input:focus-visible {
   .search-form { flex-direction: column; }
   .search-form input, .search-form button { width: 100%; }
 }
+/* Page résultats de recherche */
+.recherche-resultats {
+  max-width: 900px;
+  width: 100%;
+}
+
+.resultats-titre {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin: 0.5rem 0 0.3rem;
+}
+
+.resultats-sub {
+  color: #5b625f;
+  margin-bottom: 1.8rem;
+}
+
+.produits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.produit-card {
+  background: white;
+  border: 2px solid #e2e5df;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: border-color 0.15s ease;
+}
+.produit-card:hover {
+  border-color: var(--accent);
+}
+
+.produit-img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.produit-nom {
+  font-weight: 600;
+  font-size: 0.92rem;
+  margin: 0;
+  min-height: 2.6em;
+}
+
+.produit-prix {
+  color: var(--accent);
+  font-weight: 600;
+  margin: 0;
+}
+
+.produit-card button {
+  margin-top: 0.3rem;
+  padding: 0.6rem;
+  background: var(--ink);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+.produit-card button:hover { opacity: 0.85; }

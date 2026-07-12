@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Résultats — EcoSort-Search{% endblock %}
+{% block content %}
+<section class="recherche-resultats">
+  <a href="{{ url_for('index') }}" class="back-link">← Nouvelle recherche</a>
+  <h1 class="resultats-titre">Résultats pour « {{ requete }} »</h1>
+  <p class="resultats-sub">Choisissez le produit qui correspond à ce que vous avez.</p>
+
+  <div class="produits-grid">
+    {% for produit in produits %}
+    <form class="produit-card" action="{{ url_for('choisir') }}" method="post">
+      <input type="hidden" name="nom_produit" value="{{ produit.nom }}">
+      <input type="hidden" name="image_url" value="{{ produit.image_url }}">
+
+      <img src="{{ produit.image_url }}" alt="{{ produit.nom }}" class="produit-img">
+      <p class="produit-nom">{{ produit.nom }}</p>
+      <p class="produit-prix">{{ produit.prix }}</p>
+      <button type="submit">C'est celui-ci</button>
+    </form>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
