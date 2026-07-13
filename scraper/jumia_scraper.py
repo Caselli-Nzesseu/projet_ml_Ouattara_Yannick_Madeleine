@@ -15,12 +15,11 @@ HEADERS = {
     )
 }
 
-
 def search_jumia(keyword: str, max_results: int = 5):
-    url = f"{JUMIA_BASE_URL}/catalog/?q={keyword}"
+    url = f"{JUMIA_BASE_URL}/catalog/"
 
     try:
-        response = requests.get(url, headers=HEADERS, timeout=15)
+        response = requests.get(url, params={"q": keyword}, headers=HEADERS, timeout=15)
         response.raise_for_status()
     except requests.RequestException as e:
         print(f"Erreur lors de la requete vers Jumia : {e}")
