@@ -57,6 +57,26 @@ def search_jumia(keyword: str, max_results: int = 5):
 
     return produits
 
+def download_image(image_url: str, save_path: str = "produit_image.jpg"):
+    """Telecharge l'image d'un produit et la sauvegarde localement.
+    Renvoie True si succes, False sinon (sans jamais planter)."""
+    if not image_url:
+        print("Aucune URL d'image fournie.")
+        return False
+
+    try:
+        response = requests.get(image_url, headers=HEADERS, timeout=15)
+        response.raise_for_status()
+    except requests.RequestException as e:
+        print(f"Erreur lors du telechargement de l'image : {e}")
+        return False
+
+    with open(save_path, "wb") as f:
+        f.write(response.content)
+
+    print(f"Image telechargee et sauvegardee dans {save_path}")
+    return True
+
 if __name__ == "__main__":
     resultats = search_jumia("bouteille eau")
     print(f"\n--- {len(resultats)} produits extraits ---\n")
@@ -66,3 +86,5 @@ if __name__ == "__main__":
         print(f"Lien  : {p['lien']}")
         print(f"Image : {p['image']}")
         print("-" * 50)
+
+  
