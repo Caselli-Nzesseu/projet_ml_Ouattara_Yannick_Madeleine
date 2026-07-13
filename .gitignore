@@ -29,3 +29,7 @@ Thumbs.db
 
 # Logs
 *.log
+.ipynb_checkpoints/
+kaggle.json
+# Exception : le modele final doit etre dans le depot pour le Docker
+!model/modele_eco_sort.h5
