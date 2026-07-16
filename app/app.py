@@ -5,35 +5,11 @@ import tempfile
 import requests
 from flask import Flask, render_template, request
 
-# Permet d'importer le module model/ situé au niveau du dossier parent
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from model.predict import predire_consigne_tri  # noqa: E402
+from scraper.jumia_scraper import search_jumia  # noqa: E402
 
 app = Flask(__name__)
-
-# Données factices simulant le futur retour du scraper de Yannick
-PRODUITS_FACTICES = [
-    {
-        "nom": "Coca-Cola bouteille plastique 1.5L",
-        "prix": "1 200 FCFA",
-        "image_url": "https://placehold.co/300x300/1565C0/white.png?text=Produit+1",
-    },
-    {
-        "nom": "Coca-Cola canette 33cl",
-        "prix": "500 FCFA",
-        "image_url": "https://placehold.co/300x300/F5B700/white.png?text=Produit+2",
-    },
-    {
-        "nom": "Coca-Cola pack de 6 bouteilles verre",
-        "prix": "3 500 FCFA",
-        "image_url": "https://placehold.co/300x300/2E7D32/white.png?text=Produit+3",
-    },
-    {
-        "nom": "Coca-Cola Zero bouteille plastique 1L",
-        "prix": "900 FCFA",
-        "image_url": "https://placehold.co/300x300/6D4C33/white.png?text=Produit+4",
-    },
-]
 
 
 def telecharger_image_temp(image_url: str) -> str:
@@ -56,8 +32,18 @@ def index():
 def rechercher():
     requete = request.form.get("produit", "")
 
-    # TODO : remplacer par l'appel réel au scraper de Yannick
-    produits = PRODUITS_FACTICES
+    resultats_bruts = search_jumia(requete)
+
+    # Normalisation des clés du scraper (nom, prix, lien, image)
+    # vers celles attendues par le template (nom, prix, image_url)
+    produits = [
+        {
+            "nom": p["nom"],
+            "prix": p["prix"],
+            "image_url": p["image"],
+        }
+        for p in resultats_bruts
+    ]
 
     return render_template(
         "resultats_recherche.html",
@@ -92,7 +78,7 @@ def choisir():
         nom_produit=nom_produit,
         poubelle=resultat["poubelle"],
         couleur_classe=resultat["couleur"],
-        confiance=resultat["confiance"],
+        confiance=round(resultat["confiance"] * 100),
     )
 
 

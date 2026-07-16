@@ -49,9 +49,18 @@ main {
   padding: 2rem 1.5rem;
 }
 
+/* Hero (page de recherche) */
 .hero {
-  max-width: 640px;
-  text-align: center;
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.hero-text {
+  flex: 1 1 380px;
 }
 
 .hero h1 {
@@ -60,23 +69,39 @@ main {
   font-size: clamp(2rem, 5vw, 3rem);
   line-height: 1.1;
   margin: 0 0 1rem;
+  text-align: left;
 }
 
 .hero-sub {
   color: #5b625f;
   margin-bottom: 2rem;
+  text-align: left;
+}
+
+.hero-illustration {
+  flex: 0 0 220px;
+  max-width: 220px;
+}
+
+.hero-illustration svg {
+  width: 100%;
+  height: auto;
 }
 
 .search-form {
   display: flex;
   gap: 0.6rem;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
+  background: white;
+  padding: 8px;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(28, 35, 33, 0.08);
 }
 
 .search-form input {
   flex: 1;
-  min-width: 260px;
+  min-width: 220px;
   padding: 0.9rem 1.1rem;
   border: 2px solid #dcdfd9;
   border-radius: 8px;
@@ -103,85 +128,7 @@ main {
 }
 .search-form button:hover { opacity: 0.88; }
 
-/* Résultat */
-.resultat { max-width: 640px; width: 100%; }
-
-.back-link {
-  display: inline-block;
-  margin-bottom: 1.2rem;
-  color: var(--ink);
-  text-decoration: none;
-  font-size: 0.9rem;
-}
-.back-link:hover { text-decoration: underline; }
-
-.resultat-card {
-  border-radius: 16px;
-  padding: 3rem 2rem;
-  text-align: center;
-  color: white;
-}
-
-.resultat-eyebrow {
-  margin: 0 0 0.6rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-size: 0.85rem;
-  opacity: 0.85;
-}
-
-.resultat-poubelle {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(1.8rem, 5vw, 2.6rem);
-  margin: 0 0 0.6rem;
-}
-
-.resultat-detail {
-  margin: 0;
-  opacity: 0.9;
-}
-
-/* Couleurs des poubelles, réutilisées pour la légende ET le résultat */
-.bin-jaune  { background: var(--jaune); color: #2b2200; }
-.bin-vert   { background: var(--vert); }
-.bin-bleu   { background: var(--bleu); }
-.bin-gris   { background: var(--gris); }
-.bin-marron { background: var(--marron); }
-
-/* Légende en footer */
-.site-footer {
-  padding: 1.2rem 1.5rem 1.6rem;
-}
-
-.legend {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.legend-item {
-  padding: 0.35rem 0.8rem;
-  border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: white;
-}
-.legend-item.bin-jaune { color: #2b2200; }
-
-/* Accessibilité : focus visible clavier */
-a:focus-visible,
-button:focus-visible,
-input:focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 2px;
-}
-
-@media (max-width: 480px) {
-  .search-form { flex-direction: column; }
-  .search-form input, .search-form button { width: 100%; }
-}
-/* Page résultats de recherche */
+/* Page résultats de recherche (grille produits) */
 .recherche-resultats {
   max-width: 900px;
   width: 100%;
@@ -253,3 +200,93 @@ input:focus-visible {
   transition: opacity 0.15s ease;
 }
 .produit-card button:hover { opacity: 0.85; }
+
+/* Page résultat final (couleur de poubelle) */
+.resultat { max-width: 640px; width: 100%; }
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.2rem;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.back-link:hover { text-decoration: underline; }
+
+.resultat-card {
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  text-align: center;
+  color: white;
+}
+
+.resultat-eyebrow {
+  margin: 0 0 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.resultat-poubelle {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  margin: 0 0 0.6rem;
+}
+
+.resultat-detail {
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Couleurs des poubelles, réutilisées pour la légende ET le résultat */
+.bin-jaune  { background: var(--jaune); color: #2b2200; }
+.bin-vert   { background: var(--vert); }
+.bin-bleu   { background: var(--bleu); }
+.bin-gris   { background: var(--gris); }
+.bin-marron { background: var(--marron); }
+
+/* Légende en footer */
+.site-footer {
+  padding: 1.2rem 1.5rem 1.6rem;
+}
+
+.legend {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: white;
+}
+.legend-item.bin-jaune { color: #2b2200; }
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+}
+.bin-jaune .legend-dot { background: rgba(0,0,0,0.25); }
+
+/* Accessibilité : focus visible clavier */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+  .search-form { flex-direction: column; }
+  .search-form input, .search-form button { width: 100%; }
+}

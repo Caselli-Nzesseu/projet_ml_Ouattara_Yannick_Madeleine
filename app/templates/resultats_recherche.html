@@ -4,8 +4,9 @@
 <section class="recherche-resultats">
   <a href="{{ url_for('index') }}" class="back-link">← Nouvelle recherche</a>
   <h1 class="resultats-titre">Résultats pour « {{ requete }} »</h1>
-  <p class="resultats-sub">Choisissez le produit qui correspond à ce que vous avez.</p>
 
+  {% if produits %}
+  <p class="resultats-sub">Choisissez le produit qui correspond à ce que vous avez.</p>
   <div class="produits-grid">
     {% for produit in produits %}
     <form class="produit-card" action="{{ url_for('choisir') }}" method="post">
@@ -19,5 +20,8 @@
     </form>
     {% endfor %}
   </div>
+  {% else %}
+  <p class="resultats-sub">Aucun produit trouvé pour cette recherche. Essayez un autre mot-clé.</p>
+  {% endif %}
 </section>
 {% endblock %}
