@@ -42,6 +42,10 @@ MOTS_CLES_D3E = [
     "mixeur", "blender", "montre", "watch", "laptop", "ordinateur", "tablette",
     "tablet", "tv", "télévision", "television", "câble", "cable", "usb",
     "enceinte", "speaker", "ventilateur", "fer à repasser", "micro-onde",
+    # Marques et gammes courantes (Jumia CI)
+    "samsung", "galaxy", "iphone", "xiaomi", "redmi", "tecno", "infinix",
+    "itel", "oppo", "vivo", "huawei", "nokia", "realme", "oneplus",
+    "airpods", "powerbank", "power bank", "sim",
 ]
 
 CONSIGNE_D3E = {"poubelle": "Bac Électronique (D3E)", "couleur": "gris", "hex": "#808080"}
