@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: Récupérer le code du projet
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Tester la construction du Dockerfile
       run: docker build -t ecosort .
