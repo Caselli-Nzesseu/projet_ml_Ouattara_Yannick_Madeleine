@@ -9,10 +9,15 @@ Usage en ligne de commande (test rapide) :
 """
 
 import json
+import os
 import sys
 
 import numpy as np
 import tensorflow as tf
+
+MODEL_DIR = os.path.dirname(os.path.abspath(__file__))
+DEFAULT_MODEL_PATH = os.path.join(MODEL_DIR, "modele_eco_sort.h5")
+DEFAULT_LABELS_PATH = os.path.join(MODEL_DIR, "labels.json")
 
 IMG_SIZE = (224, 224)
 # NB : la normalisation (x/127.5 - 1) est intégrée DANS le modèle (couche
@@ -37,6 +42,10 @@ MOTS_CLES_D3E = [
     "mixeur", "blender", "montre", "watch", "laptop", "ordinateur", "tablette",
     "tablet", "tv", "télévision", "television", "câble", "cable", "usb",
     "enceinte", "speaker", "ventilateur", "fer à repasser", "micro-onde",
+    # Marques et gammes courantes (Jumia CI)
+    "samsung", "galaxy", "iphone", "xiaomi", "redmi", "tecno", "infinix",
+    "itel", "oppo", "vivo", "huawei", "nokia", "realme", "oneplus",
+    "airpods", "powerbank", "power bank", "sim",
 ]
 
 CONSIGNE_D3E = {"poubelle": "Bac Électronique (D3E)", "couleur": "gris", "hex": "#808080"}
@@ -45,7 +54,7 @@ _model = None
 _labels = None
 
 
-def charger_modele(model_path="modele_eco_sort.h5", labels_path="labels.json"):
+def charger_modele(model_path=DEFAULT_MODEL_PATH, labels_path=DEFAULT_LABELS_PATH):
     """Charge le modèle une seule fois (lazy loading)."""
     global _model, _labels
     if _model is None:
@@ -62,8 +71,8 @@ def est_electronique(nom_produit: str) -> bool:
 
 
 def predire_consigne_tri(image_path: str, nom_produit: str = "",
-                         model_path="modele_eco_sort.h5",
-                         labels_path="labels.json") -> dict:
+                         model_path=DEFAULT_MODEL_PATH,
+                         labels_path=DEFAULT_LABELS_PATH) -> dict:
     """
     Point d'entrée principal pour le Bloc C.
 

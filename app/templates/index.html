@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Recherche — EcoSort-Search{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-text">
+    <h1>Quelle poubelle<br>pour votre produit&nbsp;?</h1>
+    <p class="hero-sub">Tapez le nom d'un produit, on cherche sur Jumia et on vous dit où le jeter.</p>
+
+    <form class="search-form" action="{{ url_for('rechercher') }}" method="post">
+      <input
+        type="text"
+        name="produit"
+        placeholder="ex : shampoing Dove, bouteille Coca..."
+        required
+        autofocus
+      >
+      <button type="submit">Chercher</button>
+    </form>
+  </div>
+
+  <div class="hero-illustration" aria-hidden="true">
+    <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="130" cy="130" r="120" fill="#E1F5EE"/>
+      <rect x="70" y="110" width="50" height="70" rx="8" fill="#F5B700"/>
+      <rect x="70" y="98" width="50" height="16" rx="4" fill="#D9A400"/>
+      <rect x="140" y="90" width="50" height="90" rx="8" fill="#2E7D32"/>
+      <rect x="140" y="78" width="50" height="16" rx="4" fill="#245F27"/>
+      <path d="M95 130 L95 160 M145 165 L145 165" stroke="#FFF8E1" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="165" cy="130" r="10" fill="#A8D5AD"/>
+    </svg>
+  </div>
+</section>
+{% endblock %}
